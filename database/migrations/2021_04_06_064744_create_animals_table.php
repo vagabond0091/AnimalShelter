@@ -21,6 +21,7 @@ class CreateAnimalsTable extends Migration
             $table->string('animal_type');
             $table->string('animal_breed');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

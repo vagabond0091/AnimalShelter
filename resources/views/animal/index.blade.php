@@ -42,6 +42,11 @@
             <td>{{ $animal->animal_type }}</td>
             <td>{{ $animal->animal_breed }}</td>
             <td><a href="/animal/{{$animal->id}}/edit" class="btn btn-primary">Edit</a></td>
+            <td>{!! Form::open(['action' => ['AnimalController@destroy', $animal->id], 'method' => 'POST','class'=> 'pull-right']) !!}
+                {{Form::hidden('_method', 'DELETE') }}
+                {{Form::submit('DELETE',['class' => 'btn btn-danger']) }}
+                {!! Form::close() !!}
+            </td>
         </tr>
 
 

@@ -111,6 +111,8 @@ class AnimalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $animal = Animal::findOrfail($id);
+        $animal->delete();
+        return redirect('/animal')->with('error', 'Animal Deleted Successfully');
     }
 }
