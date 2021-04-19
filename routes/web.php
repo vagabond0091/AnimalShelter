@@ -15,3 +15,4 @@ use App\Models;
 
 
 Route::resource('animal','\App\Http\Controllers\AnimalController');
+// Route::resource('animalhealth','\App\Http\Controllers\AnimalHealthController');

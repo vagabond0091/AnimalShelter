@@ -10,11 +10,15 @@
     <table class="table mt-3">
     <thead class="thead-dark">
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Age</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Animal Type</th>
-            <th scope="col">Animal Breed</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Animal Type</th>
+            <th>Animal Breed</th>
+            <th>Health Status</th>
+            <th>Images</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,6 +45,8 @@
             <td>{{ $animal->gender }}</td>
             <td>{{ $animal->animal_type }}</td>
             <td>{{ $animal->animal_breed }}</td>
+            <td>{{$animal->health->status}}</td>
+            <td><img src="{{ asset('images/'. $animal->img_path)}}" alt="" style="width: 150px; height: 150px;"></td>
             <td><a href="/animal/{{$animal->id}}/edit" class="btn btn-primary">Edit</a></td>
             <td>{!! Form::open(['action' => ['AnimalController@destroy', $animal->id], 'method' => 'POST','class'=> 'pull-right']) !!}
                 {{Form::hidden('_method', 'DELETE') }}

@@ -20,6 +20,7 @@ class CreateAnimalsTable extends Migration
             $table->string('gender');
             $table->string('animal_type');
             $table->string('animal_breed');
+            $table->foreignId('health_id')->constrained('healths')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

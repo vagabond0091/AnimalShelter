@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Animal;
+use DB;
+use View;
+use App\Models\Health;
 class AnimalController extends Controller
 {
     /**
@@ -13,9 +16,13 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        $animals = Animal::all();
 
-        return view('animal.index')->with('animals',$animals);
+        // $animals = AnimalHealth::with('animal')->where('health_status', 1)->get();
+        $animals = Animal::with(['health'])->get();
+        // $animals = DB::table('animal_healths')->join('animals','animal_healths.id','animals.health_status')->get();
+        // dd($animals);
+       // return View::make('animal.index',compact('animals'));
+       return view('animal.index')->with('animals',$animals);
     }
 
     /**
@@ -25,7 +32,9 @@ class AnimalController extends Controller
      */
     public function create()
     {
-        return view('animal.create');
+        $animal_health = Health::pluck('status','id');
+
+        return view('animal.create')->with('animal_health',$animal_health);
     }
 
     /**
@@ -42,13 +51,20 @@ class AnimalController extends Controller
             'gender' => 'required',
             'animal_type' => 'required',
             'animal_breed' => 'required',
+            'health_id' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
+
         $animal = new Animal;
         $animal->name = $request->input('name');
         $animal->age = $request->input('age');
         $animal->gender = $request->input('gender');
         $animal->animal_type = $request->input('animal_type');
         $animal->animal_breed = $request->input('animal_breed');
+        $animal->health_id= $request->input('health_id');
+        $new_name = time() . '-' . $request->name . '.' . $request->image->extension();
+        $request->image->move(public_path('images'),$new_name);
+        $animal->img_path = $new_name;
         $animal->save();
         return redirect('/animal')->with('success', 'Animal Created');
     }
@@ -73,8 +89,11 @@ class AnimalController extends Controller
      */
     public function edit($id)
     {
+        $animal_health = Health::pluck('status','id');
         $animal = Animal::findOrfail($id);
-        return view('animal.edit')->with('animal',$animal);;
+
+        // $animal_health = AnimalHealth::findOrfail($id);
+        return view('animal.edit')->with('animal',$animal)->with('animal_health',$animal_health);
     }
 
     /**
@@ -92,14 +111,21 @@ class AnimalController extends Controller
             'gender' => 'required',
             'animal_type' => 'required',
             'animal_breed' => 'required',
+            'health_id' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
-        $animal = new Animal;
+        $animal = Animal::find($id);
         $animal->name = $request->input('name');
         $animal->age = $request->input('age');
         $animal->gender = $request->input('gender');
         $animal->animal_type = $request->input('animal_type');
         $animal->animal_breed = $request->input('animal_breed');
+        $animal->health_id = $request->input('health_id');
+        $new_name = time() . '-' . $request->name . '.' . $request->image->extension();
+        $request->image->move(public_path('images'),$new_name);
+        $animal->img_path = $new_name;
         $animal->save();
+
         return redirect('/animal')->with('success', 'Animal Updated');
     }
 
