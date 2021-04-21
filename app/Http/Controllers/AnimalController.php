@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Animal;
-use DB;
-use View;
+// use DB;
+// use View;
 use App\Models\Health;
 class AnimalController extends Controller
 {

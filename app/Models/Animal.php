@@ -11,4 +11,8 @@ class Animal extends Model
     public function health(){
         return $this->belongsTo(Health::class);
     }
+    public function rescuer(){
+        return $this->hasMany(Rescuer::class);
+    }
+
 }
