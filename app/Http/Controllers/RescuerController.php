@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Rescuer;
-use App\Models\Animal;
 
+use App\Models\Animal;
+use App\Models\Rescuer;
+use DB;
 class RescuerController extends Controller
 {
     /**
@@ -15,8 +16,9 @@ class RescuerController extends Controller
      */
     public function index()
     {
+        // view('rescuer.index')->with('rescuers',$rescuers)
         $rescuers = rescuer::with('animal')->get();
-
+        // dd($rescuers);
         return view('rescuer.index')->with('rescuers',$rescuers);
     }
 
@@ -27,7 +29,8 @@ class RescuerController extends Controller
      */
     public function create()
     {
-        $animal_id = animal::pluck('id');
+        $animal_id = animal::pluck('id','id');
+        // dd($animal_id);
         return view('rescuer.create')->with('animal_id',$animal_id);
     }
 
@@ -51,8 +54,14 @@ class RescuerController extends Controller
         $rescuer->res_lname = $request->input('res_lname');
         $rescuer->res_addr = $request->input('res_addr');
         $rescuer->res_phone = $request->input('res_phone');
-        $rescuer->animal_id = $request->input('animal_id');
         $rescuer->save();
+        $animal_id = $request->input('animal_id');
+        $rescuer_id = $rescuer->id;
+        $animal = DB::table('animal_rescuer')->insert([
+            'animal_id' => $animal_id,
+            'rescuer_id' => $rescuer_id,
+            'created_at' => date("Y-m-d"),
+        ]);
         return redirect('/rescuer')->with('success', 'Rescuer Created');
     }
 
@@ -97,7 +106,6 @@ class RescuerController extends Controller
             'animal_id' => 'required',
         ]);
         $rescuer = rescuer::find($id);
-        $rescuer = new Rescuer;
         $rescuer->res_name = $request->input('res_name');
         $rescuer->res_lname = $request->input('res_lname');
         $rescuer->res_addr = $request->input('res_addr');
@@ -115,6 +123,8 @@ class RescuerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rescuer = rescuer::findOrfail($id);
+        $rescuer->delete();
+        return redirect('/rescuer')->with('error', 'Rescuer Deleted Successfully');
     }
 }

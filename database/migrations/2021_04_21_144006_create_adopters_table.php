@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRescuersTable extends Migration
+class CreateAdoptersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateRescuersTable extends Migration
      */
     public function up()
     {
-        Schema::create('rescuers', function (Blueprint $table) {
+        Schema::create('adopters', function (Blueprint $table) {
             $table->id();
-            $table->string('res_name');
-            $table->string('res_lname');
-            $table->string('res_addr');
-            $table->string('res_phone');
-            $table->foreignId('animal_id')->constrained('animals')->onUpdate('restrict')->onDelete('cascade');
+            $table->string('adpt_name');
+            $table->string('adpt_lname');
+            $table->string('adpt_addr');
+            $table->string('adpt_phone');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateRescuersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rescuers');
+        Schema::dropIfExists('adopters');
     }
 }

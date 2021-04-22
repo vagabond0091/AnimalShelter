@@ -7,6 +7,7 @@ use App\Models\Animal;
 // use DB;
 // use View;
 use App\Models\Health;
+use App\Models\Adopter;
 class AnimalController extends Controller
 {
     /**
@@ -18,7 +19,7 @@ class AnimalController extends Controller
     {
 
         // $animals = AnimalHealth::with('animal')->where('health_status', 1)->get();
-        $animals = Animal::with(['health'])->get();
+        $animals = Animal::with(['health','adopter'])->get();
         // $animals = DB::table('animal_healths')->join('animals','animal_healths.id','animals.health_status')->get();
         // dd($animals);
        // return View::make('animal.index',compact('animals'));
@@ -62,9 +63,11 @@ class AnimalController extends Controller
         $animal->animal_type = $request->input('animal_type');
         $animal->animal_breed = $request->input('animal_breed');
         $animal->health_id= $request->input('health_id');
-        $new_name = time() . '-' . $request->name . '.' . $request->image->extension();
-        $request->image->move(public_path('images'),$new_name);
-        $animal->img_path = $new_name;
+        $destination_path = 'public/images';
+        $image = $request->file('image');
+        $image_name = $image->getClientOriginalName();
+        $path = $image->storeAs($destination_path,$image_name);
+        $animal->img_path = $image_name;
         $animal->save();
         return redirect('/animal')->with('success', 'Animal Created');
     }
@@ -121,9 +124,11 @@ class AnimalController extends Controller
         $animal->animal_type = $request->input('animal_type');
         $animal->animal_breed = $request->input('animal_breed');
         $animal->health_id = $request->input('health_id');
-        $new_name = time() . '-' . $request->name . '.' . $request->image->extension();
-        $request->image->move(public_path('images'),$new_name);
-        $animal->img_path = $new_name;
+        $destination_path = 'public/images';
+        $image = $request->file('image');
+        $image_name = $image->getClientOriginalName();
+        $path = $image->storeAs($destination_path,$image_name);
+        $animal->img_path = $image_name;
         $animal->save();
 
         return redirect('/animal')->with('success', 'Animal Updated');

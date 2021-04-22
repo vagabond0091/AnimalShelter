@@ -17,7 +17,7 @@
             {{Form::text('animal_breed',$animal->animal_breed,['class' => 'form-control', 'placeholder' => 'Animal Breed'])}}
             <br>
             <div class="form-group">
-                 <img src="{{ asset('images/'. $animal->img_path)}}" alt="Test">
+                 <img src="{{ asset('images/'. $animal->img_path)}}" alt="Test" style="width:150px;height: 150px;">
             </div>
 
 

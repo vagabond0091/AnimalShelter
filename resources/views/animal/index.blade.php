@@ -46,7 +46,7 @@
             <td>{{ $animal->animal_type }}</td>
             <td>{{ $animal->animal_breed }}</td>
             <td>{{$animal->health->status}}</td>
-            <td><img src="{{ asset('images/'. $animal->img_path)}}" alt="" style="width: 150px; height: 150px;"></td>
+            <td><img src="{{ asset('storage/images/'. $animal->img_path)}}" alt="" style="width: 150px; height: 150px;"></td>
             <td><a href="/animal/{{$animal->id}}/edit" class="btn btn-primary">Edit</a></td>
             <td>{!! Form::open(['action' => ['AnimalController@destroy', $animal->id], 'method' => 'POST','class'=> 'pull-right']) !!}
                 {{Form::hidden('_method', 'DELETE') }}
