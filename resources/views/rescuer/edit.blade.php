@@ -12,10 +12,6 @@
             {{Form::label('res_phone','Phone:')}}
             {{Form::text('res_phone',$rescuer->res_phone,['class' => 'form-control', 'placeholder' => 'Phone'])}}
 
-             <div class="form-group">
-                    {{Form::label('animal_id','Animal ID')}}
-                    {{Form::select('animal_id', $animal_id,null,['class' => 'form-select'])}}
-             </div>
 
     </div>
 

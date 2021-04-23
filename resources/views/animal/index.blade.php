@@ -8,7 +8,7 @@
     <a href="/animal/create" class="btn btn-primary mt-2">Add Animal</a>
     </div>
     <table class="table mt-3">
-    <thead class="thead-dark">
+    <thead class="thead table-dark p-3">
         <tr>
             <th>Name</th>
             <th>Age</th>

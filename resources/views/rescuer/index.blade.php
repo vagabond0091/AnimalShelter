@@ -9,7 +9,7 @@
     <a href="/rescuer/create" class="btn btn-primary mt-2">Create Rescuer</a>
     </div>
     <table class="table mt-3">
-    <thead class="thead-dark">
+    <thead class="thead table-dark p-3">
         <tr>
             <th>Name</th>
             <th>Last Name</th>

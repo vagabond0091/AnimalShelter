@@ -84,9 +84,9 @@ class RescuerController extends Controller
      */
     public function edit($id)
     {
-        $animal_id = animal::pluck('id');
+
         $rescuer = rescuer::findOrfail($id);
-        return view('rescuer.edit')->with('animal_id',$animal_id)->with('rescuer',$rescuer);
+        return view('rescuer.edit')->with('rescuer',$rescuer);
     }
 
     /**
@@ -110,7 +110,6 @@ class RescuerController extends Controller
         $rescuer->res_lname = $request->input('res_lname');
         $rescuer->res_addr = $request->input('res_addr');
         $rescuer->res_phone = $request->input('res_phone');
-        $rescuer->animal_id = $request->input('animal_id');
         $rescuer->save();
         return redirect('/rescuer')->with('success', 'Rescuer Updated');
     }
