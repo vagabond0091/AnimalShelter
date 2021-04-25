@@ -13,12 +13,19 @@
             {{Form::text('adpt_phone','',['class' => 'form-control', 'placeholder' => 'Phone'])}}
 
              <div class="form-group">
-                    {{Form::label('animal_id','Animal Id')}}
-                    {{Form::select('animal_id', $animal_id,null,['class' => 'form-select'])}}
+                    {{Form::label('animal_id','Animal Name')}}
+
+                    {{-- {{Form::select('animal_id',$animal_id[0]->name,"null",['class' => 'form-select'])}} --}}
+                        <select name="animal_id" id="">
+                            @foreach($animal_id as $animal)
+                                    <option value="{{ $animal->id }}">{{ $animal->name }}</option>
+                            @endforeach
+                        </select>
+
              </div>
 
     </div>
 
-   {{Form::submit('Submit',['class' => 'btn btn-primary']) }}
+   {{Form::submit('Submit',['class' => 'btn btn-primary mt-3']) }}
    {!! Form::close() !!}
 @endsection

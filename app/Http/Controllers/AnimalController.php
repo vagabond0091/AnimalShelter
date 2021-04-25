@@ -18,11 +18,8 @@ class AnimalController extends Controller
     public function index()
     {
 
-        // $animals = AnimalHealth::with('animal')->where('health_status', 1)->get();
         $animals = Animal::with(['health','adopter'])->get();
-        // $animals = DB::table('animal_healths')->join('animals','animal_healths.id','animals.health_status')->get();
-        // dd($animals);
-       // return View::make('animal.index',compact('animals'));
+
        return view('animal.index')->with('animals',$animals);
     }
 

@@ -18,9 +18,9 @@ Route::resource('animal','\App\Http\Controllers\AnimalController');
 Route::resource('rescuer','\App\Http\Controllers\RescuerController');
 Route::resource('adopter','\App\Http\Controllers\AdopterController');
 Route::resource('user','\App\Http\Controllers\UserController');
-
-// Route::resource('animalhealth','\App\Http\Controllers\AnimalHealthController');
+Route::resource('illness','\App\Http\Controllers\IllnessController');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('/');

@@ -47,7 +47,6 @@ class RescuerController extends Controller
             'res_lname' => 'required',
             'res_addr' => 'required',
             'res_phone' => 'required',
-            'animal_id' => 'required',
         ]);
         $rescuer = new Rescuer;
         $rescuer->res_name = $request->input('res_name');

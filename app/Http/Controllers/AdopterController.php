@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Health;
 use App\Models\Animal;
 use App\Models\Adopter;
 use DB;
@@ -28,7 +29,8 @@ class AdopterController extends Controller
      */
     public function create()
     {
-        $animal_id = animal::pluck('id','id');
+        $animal_id = animal::with('health')->where('health_id',1)->where('adopted',NULL)->get();
+
         return view('adopter.create')->with('animal_id',$animal_id);
     }
 
@@ -62,6 +64,9 @@ class AdopterController extends Controller
             'adopter_id' => $adopter_id,
             'created_at' => date("Y-m-d"),
         ]);
+        $animal = Animal::findOrfail($animal_id);
+        $animal->adopted = true;
+        $animal->save();
         return redirect('/adopter')->with('success', 'Adopter Created');
     }
 
@@ -84,9 +89,8 @@ class AdopterController extends Controller
      */
     public function edit($id)
     {
-        $animal_id = animal::pluck('id','id');
         $adopter = adopter::findOrFail($id);
-        return view('adopter.edit')->with('animal_id',$animal_id)->with('adopter',$adopter);
+        return view('adopter.edit')->with('adopter',$adopter);
     }
 
     /**

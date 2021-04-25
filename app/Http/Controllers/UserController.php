@@ -51,8 +51,6 @@ class UserController extends Controller
         $user->employee_type = $request->input('employee_type');
         $user->save();
         return redirect('/user')->with('success','User Created Successfully');
-
-
     }
 
     /**

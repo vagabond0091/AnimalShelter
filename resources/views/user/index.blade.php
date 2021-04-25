@@ -34,17 +34,17 @@
             <td>{{ $user->employee_type }}</td>
 
             <td><a href="/user/{{$user->id}}/edit" class="btn btn-primary ml-5">Edit</a></td>
-            @if(Auth::user()->employee_type  == "employee" )
+           {{--  @if(user::user()->employee_type  == "employee" )
                 @if($user->name == Auth::user()->name  )
 
-                @else
+                @else --}}
                 <td>{!! Form::open(['action' => ['UserController@destroy', $user->id], 'method' => 'POST','class'=> 'pull-right']) !!}
                     {{Form::hidden('_method', 'DELETE') }}
                     {{Form::submit('DELETE',['class' => 'btn btn-danger']) }}
                     {!! Form::close() !!}
                 </td>
-                @endif
-            @endif
+               {{--  @endif
+            @endif --}}
         </tr>
 
 
