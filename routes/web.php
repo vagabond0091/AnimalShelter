@@ -22,5 +22,6 @@ Route::resource('illness','\App\Http\Controllers\IllnessController');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('/');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\AjaxController::class, 'index'])->name('/');
+Route::get('/search', [App\Http\Controllers\AjaxController::class, 'search_index'])->name('search');

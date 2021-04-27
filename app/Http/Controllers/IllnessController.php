@@ -10,6 +10,11 @@ use App\Models\Health;
 use DB;
 class IllnessController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +22,9 @@ class IllnessController extends Controller
      */
     public function index()
     {
+        $search = null;
         $illnesses = illness::with('animal')->get();
-        return view('illness.index')->with('illnesses',$illnesses);
+        return view('illness.index')->with('illnesses',$illnesses)->with('search',$search);
     }
 
     /**
@@ -28,8 +34,12 @@ class IllnessController extends Controller
      */
     public function create()
     {
+        $search = null;
         $animal_id = animal::pluck('name','id');
-        return view('illness.create')->with('animal_id',$animal_id);
+        if(auth()->user()->employee_type !== "veterinarians"){
+            return redirect('/illness')->with('error','Unauthorized Personnel');
+        }
+        return view('illness.create')->with('animal_id',$animal_id)->with('search',$search);
     }
 
     /**
@@ -77,8 +87,9 @@ class IllnessController extends Controller
      */
     public function show($id)
     {
-        $animal_id = animal::pluck('name','id');
-        return view('illness.create')->with('animal_id',$animal_id);
+
+        // $animal_id = animal::pluck('name','id');
+        // return view('illness.create')->with('animal_id',$animal_id)->with('search',$search);
     }
 
     /**
@@ -89,10 +100,12 @@ class IllnessController extends Controller
      */
     public function edit($id)
     {
+        $search = null;
         $illness = illness::findOrFail($id);
-
-
-        return view('illness.edit')->with('illness',$illness);
+        if(auth()->user()->employee_type !== "veterinarians"){
+            return redirect('/illness')->with('error','Unauthorized Personnel');
+        }
+        return view('illness.edit')->with('illness',$illness)->with('search',$search);
     }
 
     /**
@@ -137,6 +150,9 @@ class IllnessController extends Controller
     public function destroy($id)
     {
         $illness = Illness::findOrFail($id);
+        if(auth()->user()->employee_type !== "veterinarians"){
+            return redirect('/illness')->with('error','Unauthorized Personnel');
+        }
         $illness->delete();
         return redirect('/illness')->with('error', 'Deleted Record Successfully');
     }

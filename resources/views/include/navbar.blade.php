@@ -2,17 +2,28 @@
 <header class="p-3 bg-dark text-white">
     <div class="container">
 
-      <div class="d-flex flex-wrap align-items-center justify-content-center">
+      <div class="d-flex flex-wrap align-items-center justify-content-around">
 
 
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 mb-md-0">
+      <ul class="nav ">
         <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
         <li><a href="/animal" class="nav-link px-2 text-white">Animals</a></li>
         <li><a href="/rescuer" class="nav-link px-2 text-white">Rescuer</a></li>
         <li><a href="/adopter" class="nav-link px-2 text-white">Adopter</a></li>
         <li><a href="/user" class="nav-link px-2 text-white">Personnel</a></li>
+        <li><a href="/illness" class="nav-link px-2 text-white">Health</a></li>
          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
       </ul>
+      <div class="search-container">
+        {!! Form::open(['action' => 'AjaxController@search_index', 'method' => 'GET']) !!}
+
+                <span>{{Form::text('search',$search,['class' => 'form-control search', 'id'=>'search', 'placeholder' => 'Search'])}}</span>
+
+
+         <span>{{Form::submit('Search',['class' => 'btn btn-primary mt-3 d-inline-block']) }}</span>
+         {!! Form::close() !!}
+
+      </div>
       <ul class="navbar-nav ml-auto d-flex">
                    <div class="nav-wrapper">
                         <!-- Authentication Links -->

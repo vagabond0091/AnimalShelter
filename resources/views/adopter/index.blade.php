@@ -15,8 +15,8 @@
             <th>Last Name</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Animal ID</th>
             <th>Animal Name</th>
+            <th>Animal Image</th>
             <th></th>
             <th></th>
 
@@ -33,9 +33,8 @@
             <td>{{ $adopter->adpt_lname }}</td>
             <td>{{ $adopter->adpt_addr }}</td>
             <td>{{ $adopter->adpt_phone }}</td>
-            <td>{{ $adopter->animal[0]->id}}</td>
             <td>{{ $adopter->animal[0]->name}}</td>
-
+            <td><img src="{{  asset('storage/images/'.$adopter->animal[0]->img_path)}}" alt="" style="width: 150px;height: 150px;"></td>
             <td><a href="/adopter/{{$adopter->id}}/edit" class="btn btn-primary ml-5">Edit</a></td>
             <td>{!! Form::open(['action' => ['AdopterController@destroy', $adopter->id], 'method' => 'POST','class'=> 'pull-right']) !!}
                 {{Form::hidden('_method', 'DELETE') }}

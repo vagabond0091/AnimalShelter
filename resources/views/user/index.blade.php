@@ -13,7 +13,6 @@
         <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Password</th>
             <th>Employee Type</th>
             <th></th>
             <th></th>
@@ -30,7 +29,6 @@
         <tr>
             <th scope="row">{{ $user->name }}</th>
             <td>{{ $user->email }}</td>
-            <td>{{ $user->password}}</td>
             <td>{{ $user->employee_type }}</td>
 
             <td><a href="/user/{{$user->id}}/edit" class="btn btn-primary ml-5">Edit</a></td>

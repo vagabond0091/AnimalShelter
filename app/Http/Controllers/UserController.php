@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,9 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        $search = null;
+
         $users = User::all();
 
-        return view('user.index')->with('users',$users);
+        return view('user.index')->with('users',$users)->with('search',$search);
     }
 
     /**
@@ -25,7 +31,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $search = null;
+         if(auth()->user()->employee_type !== "employee"){
+            return redirect('/user')->with('error','Unauthorized Personnel');
+        }
+        return view('user.create')->with('search',$search);
     }
 
     /**
@@ -72,8 +82,12 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $search = null;
         $user = User::findOrFail($id);
-        return view('user.edit')->with('user',$user);
+         if(auth()->user()->employee_type !== "employee"){
+            return redirect('/user')->with('error','Unauthorized Personnel');
+        }
+        return view('user.edit')->with('user',$user)->with('search',$search);
     }
 
     /**
@@ -108,6 +122,9 @@ class UserController extends Controller
     public function destroy($id)
     {
           $user = User::findOrFail($id);
+          if(auth()->user()->employee_type !== "employee"){
+               return redirect('/animal')->with('error','Unauthorized Personnel');
+           }
           $user->delete();
           return redirect('/user')->with('error','Personnel Delete Successfully');
     }

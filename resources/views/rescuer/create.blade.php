@@ -13,7 +13,7 @@
             {{Form::text('res_phone','',['class' => 'form-control', 'placeholder' => 'Phone'])}}
 
              <div class="form-group">
-                    {{Form::label('animal_id','Animal Id')}}
+                    {{Form::label('animal_id','Animal Name')}}
                     {{Form::select('animal_id', $animal_id,null,['class' => 'form-select'])}}
              </div>
 

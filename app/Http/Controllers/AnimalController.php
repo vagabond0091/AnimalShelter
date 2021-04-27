@@ -15,12 +15,17 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index']]);
+    }
     public function index()
     {
-
+        $search = null;
         $animals = Animal::with(['health','adopter'])->get();
 
-       return view('animal.index')->with('animals',$animals);
+       return view('animal.index')->with('animals',$animals)->with('search',$search);
+
     }
 
     /**
@@ -30,9 +35,12 @@ class AnimalController extends Controller
      */
     public function create()
     {
+        $search = null;
         $animal_health = Health::pluck('status','id');
-
-        return view('animal.create')->with('animal_health',$animal_health);
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/animal')->with('error','Unauthorized Personnel');
+        }
+        return view('animal.create')->with('animal_health',$animal_health)->with('search',$search);
     }
 
     /**
@@ -91,9 +99,12 @@ class AnimalController extends Controller
     {
         $animal_health = Health::pluck('status','id');
         $animal = Animal::findOrfail($id);
-
+        $search = null;
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/animal')->with('error','Unauthorized Personnel');
+        }
         // $animal_health = AnimalHealth::findOrfail($id);
-        return view('animal.edit')->with('animal',$animal)->with('animal_health',$animal_health);
+        return view('animal.edit')->with('animal',$animal)->with('animal_health',$animal_health)->with('search',$search);
     }
 
     /**
@@ -140,6 +151,9 @@ class AnimalController extends Controller
     public function destroy($id)
     {
         $animal = Animal::findOrfail($id);
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/animal')->with('error','Unauthorized Personnel');
+        }
         $animal->delete();
         return redirect('/animal')->with('error', 'Animal Deleted Successfully');
     }

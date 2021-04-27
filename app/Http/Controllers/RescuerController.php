@@ -9,6 +9,12 @@ use App\Models\Rescuer;
 use DB;
 class RescuerController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +23,10 @@ class RescuerController extends Controller
     public function index()
     {
         // view('rescuer.index')->with('rescuers',$rescuers)
+        $search = null;
         $rescuers = rescuer::with('animal')->get();
         // dd($rescuers);
-        return view('rescuer.index')->with('rescuers',$rescuers);
+        return view('rescuer.index')->with('rescuers',$rescuers)->with('search',$search);
     }
 
     /**
@@ -29,9 +36,12 @@ class RescuerController extends Controller
      */
     public function create()
     {
-        $animal_id = animal::pluck('id','id');
-        // dd($animal_id);
-        return view('rescuer.create')->with('animal_id',$animal_id);
+        $search = null;
+        $animal_id = animal::pluck('name','id');
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/rescuer')->with('error','Unauthorized Personnel');
+        }
+        return view('rescuer.create')->with('animal_id',$animal_id)->with('search',$search);
     }
 
     /**
@@ -83,9 +93,12 @@ class RescuerController extends Controller
      */
     public function edit($id)
     {
-
+        $search = null;
         $rescuer = rescuer::findOrfail($id);
-        return view('rescuer.edit')->with('rescuer',$rescuer);
+         if(auth()->user()->employee_type !== "employee"){
+            return redirect('/rescuer')->with('error','Unauthorized Personnel');
+        }
+        return view('rescuer.edit')->with('rescuer',$rescuer)->with('search',$search);
     }
 
     /**
@@ -122,6 +135,9 @@ class RescuerController extends Controller
     public function destroy($id)
     {
         $rescuer = rescuer::findOrfail($id);
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/rescuer')->with('error','Unauthorized Personnel');
+        }
         $rescuer->delete();
         return redirect('/rescuer')->with('error', 'Rescuer Deleted Successfully');
     }

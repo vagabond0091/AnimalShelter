@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -49,6 +50,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+         $search = null;
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -65,6 +67,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('list','\App\Http\Controllers\AjaxController@list');
+
+// Route::get('list','\App\Http\Controllers\IndexController@list');
+Route::get('search','\App\Http\Controllers\AjaxController@search');
+
+Route::get('search_index','\App\Http\Controllers\AjaxController@search_index');
+Route::get('adopter','\App\Http\Controllers\AjaxController@list_adopted');
+

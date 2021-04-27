@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+            <div class="card login">
+                <div class="card-header login">{{ __('Register') }}</div>
 
-                <div class="card-body">
+                <div class="card-body login">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 

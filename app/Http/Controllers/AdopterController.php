@@ -9,6 +9,10 @@ use App\Models\Adopter;
 use DB;
 class AdopterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,10 +20,11 @@ class AdopterController extends Controller
      */
     public function index()
     {
+        $search = null;
         $adopters = adopter::with('animal')->get();
         // $adoptered= $adopters->adopter_animal;
         // dd($adopters);
-        return view('adopter.index')->with('adopters',$adopters);
+        return view('adopter.index')->with('adopters',$adopters)->with('search',$search);
     }
 
     /**
@@ -29,9 +34,13 @@ class AdopterController extends Controller
      */
     public function create()
     {
-        $animal_id = animal::with('health')->where('health_id',1)->where('adopted',NULL)->get();
+        $search = null;
 
-        return view('adopter.create')->with('animal_id',$animal_id);
+        $animal_id = animal::with('health')->where('health_id',1)->where('adopted',NULL)->get();
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/adopter')->with('error','Unauthorized Personnel');
+        }
+        return view('adopter.create')->with('animal_id',$animal_id)->with('search',$search);
     }
 
     /**
@@ -89,8 +98,12 @@ class AdopterController extends Controller
      */
     public function edit($id)
     {
+        $search = null;
         $adopter = adopter::findOrFail($id);
-        return view('adopter.edit')->with('adopter',$adopter);
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/adopter')->with('error','Unauthorized Personnel');
+        }
+        return view('adopter.edit')->with('adopter',$adopter)->with('search',$search);
     }
 
     /**
@@ -126,7 +139,10 @@ class AdopterController extends Controller
     public function destroy($id)
     {
         $adopter = adopter::findOrfail($id);
+        if(auth()->user()->employee_type !== "employee"){
+            return redirect('/adopter')->with('error','Unauthorized Personnel');
+        }
         $adopter->delete();
-        return redirect('/rescuer')->with('error', 'Rescuer Deleted Successfully');
+        return redirect('/adopter')->with('error', 'Adopter Deleted Successfully');
     }
 }

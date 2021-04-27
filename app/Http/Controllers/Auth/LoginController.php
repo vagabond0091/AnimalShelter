@@ -20,7 +20,10 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
+    // public function login(){
+    //     $search = null;
+    //     return view('login')->with('search',$search);
+    // }
     /**
      * Where to redirect users after login.
      *

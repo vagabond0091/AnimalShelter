@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use View;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+         $search = null;
+        View::share('search',$search);
     }
 }
