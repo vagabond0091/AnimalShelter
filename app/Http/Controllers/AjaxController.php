@@ -15,7 +15,7 @@ class AjaxController extends Controller
     }
     public function list(){
          $animals = Animal::with(['health','adopter'])->where('health_id',1)->where('adopted',Null)->get();
-       return response()->json($animals);
+        return response()->json($animals);
     }
     public function search(Request $request){
         $search = $request->input('search');
@@ -28,14 +28,15 @@ class AjaxController extends Controller
         return view('search.index')->with('search',$search);
     }
     public function list_adopted(){
-        $adopters = Animal::with(['health','adopter'])->where('adopted',1)->get();
-        // dd($adopters);
+        $adopters = Adopter::with(['animal'])->get();
+         // dd($adopters);
         return response()->json($adopters);
     }
-    public function adopted_views(){
-
-        return view('adopter.index');
+     public function list_animals(){
+        $animals = Animal::with(['health','adopter'])->get();
+        return response()->json($animals);
     }
+
 
 
 }

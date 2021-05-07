@@ -24,5 +24,5 @@ Route::get('list','\App\Http\Controllers\AjaxController@list');
 Route::get('search','\App\Http\Controllers\AjaxController@search');
 
 Route::get('search_index','\App\Http\Controllers\AjaxController@search_index');
-Route::get('adopter','\App\Http\Controllers\AjaxController@list_adopted');
-
+Route::get('adopters','\App\Http\Controllers\AjaxController@list_adopted');
+Route::get('animals','\App\Http\Controllers\AjaxController@list_animals');

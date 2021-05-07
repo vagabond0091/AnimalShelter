@@ -21,24 +21,10 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
-
-    @foreach($animals as $animal)
-
-        {{-- <div class="card-deck ">
-            <div class="card">
-                <img class="card-img-top" src="" alt="No Available Image">
-                <div class="card-body">
-                 <a href="/animal/{{$animal->id}}"> <h5 class="card-title">{{ $animal->name }}</h5></a>
-                  <p class="card-text"><p>{{ $animal->age }}</p></p>
-                  <p class="card-text"><p>{{ $animal->gender }}</p></p>
-                  <p class="card-text"><p>{{ $animal->animal_type }}</p></p>
-                  <p class="card-text"><p>{{ $animal->animal_breed }}</p></p>
-                </div>
-
-            </div>
-        </div> --}}
-
+    <tbody class="data-animals">
+{{--
+    @foreach($animals as $animal) --}}
+{{--
         <tr>
             <th scope="row">{{ $animal->name }}</th>
             <td>{{ $animal->age }}</td>
@@ -56,7 +42,7 @@
         </tr>
 
 
- @endforeach
+ @endforeach --}}
     </tbody>
  </table>
        {{-- </div> --}}

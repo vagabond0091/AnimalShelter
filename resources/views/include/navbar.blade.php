@@ -12,7 +12,16 @@
         <li><a href="/adopter" class="nav-link px-2 text-white">Adopter</a></li>
         <li><a href="/user" class="nav-link px-2 text-white">Personnel</a></li>
         <li><a href="/illness" class="nav-link px-2 text-white">Health</a></li>
-         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+
+         <li class="dropdown show">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Messages
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="/contact">Messages</a>
+              <a class="dropdown-item" href="/contact/create">Message Us</a>
+            </div>
+          </li>
       </ul>
       <div class="search-container">
         {!! Form::open(['action' => 'AjaxController@search_index', 'method' => 'GET']) !!}

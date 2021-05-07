@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Animal;
-// use DB;
-// use View;
+// use Illuminate\Support\Facades\Validator;
+use DB;
+// use Validator;
 use App\Models\Health;
 use App\Models\Adopter;
 class AnimalController extends Controller
@@ -21,10 +22,9 @@ class AnimalController extends Controller
     }
     public function index()
     {
-        $search = null;
-        $animals = Animal::with(['health','adopter'])->get();
-
-       return view('animal.index')->with('animals',$animals)->with('search',$search);
+    //     $search = null;
+    //     $animals = Animal::with(['health','adopter'])->where('health_id',1)->where('adopted',NULL)->get();
+        return view('animal.index');
 
     }
 
@@ -61,6 +61,7 @@ class AnimalController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
         ]);
 
+        // dd($request->all());
         $animal = new Animal;
         $animal->name = $request->input('name');
         $animal->age = $request->input('age');
@@ -155,6 +156,7 @@ class AnimalController extends Controller
             return redirect('/animal')->with('error','Unauthorized Personnel');
         }
         $animal->delete();
-        return redirect('/animal')->with('error', 'Animal Deleted Successfully');
+        return response()->json(["success" => "adopter deleted successfully.",
+             "data" => $animal,"status" => 200]);
     }
 }

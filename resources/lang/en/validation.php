@@ -134,9 +134,69 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'required' => 'Please fill out the name field',
         ],
+        'age' =>[
+            'required' => 'Please fill out the age field'
+        ],
+        'gender' =>[
+            'required' => 'Please fill out the gender field'
+        ],
+         'animal_type' =>[
+            'required' => 'Please fill out the Animal Type field'
+        ],
+         'animal_breed' =>[
+            'required' => 'Please fill out the Animal Breed field'
+        ],
+         'health_id' =>[
+            'required' => 'Please fill out the health status field'
+        ],
+         'image' =>[
+            'required' => 'Please fill out the image field',
+            'image' => 'Please enter an  image',
+            'mimetypes' => 'The image must be a file of type: :values',
+        ],
+         'adpt_name' =>[
+            'required' => 'Please fill out the first name field',
+        ],
+        'adpt_lname' =>[
+            'required' => 'Please fill out the last name field',
+        ],
+        'adpt_addr' =>[
+            'required' => 'Please fill out the address field',
+        ],
+        'adpt_phone' =>[
+            'required' => 'Please fill out the phone number field',
+            'numeric' => 'Please enter a number in the phone field'
+        ],
+        'res_name' =>[
+            'required' => 'Please fill out the first name field',
+        ],
+        'res_lname' =>[
+            'required' => 'Please fill out the last name field',
+        ],
+        'res_addr' =>[
+            'required' => 'Please fill out the address field',
+        ],
+        'res_phone' =>[
+            'required' => 'Please fill out the phone number field',
+            'numeric' => 'Please enter a number in the phone field'
+        ],
+        'illness_status' =>[
+            'required' => 'Please fill out the health status field',
+        ],
+        'description' =>[
+            'required' => 'Please fill out the description field',
+        ],
+        'email' =>[
+            'required' => 'Please fill out the email field',
+            'email' => 'Enter a valid email address'
+        ],
+        'message' =>[
+            'required' => 'Please fill out the message field'
+        ]
+
     ],
 
     /*

@@ -20,11 +20,11 @@ class AdopterController extends Controller
      */
     public function index()
     {
-        $search = null;
-        $adopters = adopter::with('animal')->get();
+        // $search = null;
+        // $adopters = adopter::with('animal')->get();
         // $adoptered= $adopters->adopter_animal;
         // dd($adopters);
-        return view('adopter.index')->with('adopters',$adopters)->with('search',$search);
+        return view('adopter.index');
     }
 
     /**
@@ -55,8 +55,7 @@ class AdopterController extends Controller
             'adpt_name' => 'required',
             'adpt_lname' => 'required',
             'adpt_addr' => 'required',
-            'adpt_phone' => 'required',
-            'animal_id' => 'required',
+            'adpt_phone' => 'required|numeric:true',
         ]);
 
         $adopter = new Adopter;
@@ -68,6 +67,7 @@ class AdopterController extends Controller
         $adopter->save();
 
         $adopter_id = $adopter->id;
+
         $animal = DB::table('adopter_animal')->insert([
             'animal_id' => $animal_id,
             'adopter_id' => $adopter_id,
@@ -143,6 +143,9 @@ class AdopterController extends Controller
             return redirect('/adopter')->with('error','Unauthorized Personnel');
         }
         $adopter->delete();
-        return redirect('/adopter')->with('error', 'Adopter Deleted Successfully');
+        // dd($adopter);*/
+        // return redirect('/adopter')->with('error', 'Adopter Deleted Successfully');
+        return response()->json(["success" => "adopter deleted successfully.",
+             "data" => $adopter,"status" => 200]);
     }
 }

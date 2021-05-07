@@ -15,8 +15,8 @@
             <th>Last Name</th>
             <th>Address</th>
             <th>Phone</th>
-            <th>Animal Name</th>
-             <th>Animal Image</th>
+            <th></th>
+             <th></th>
             <th></th>
             <th></th>
 
@@ -33,8 +33,8 @@
             <td>{{ $rescuer->res_lname }}</td>
             <td>{{ $rescuer->res_addr }}</td>
             <td>{{ $rescuer->res_phone }}</td>
-            <td>{{ $rescuer->animal[0]->name }}</td>
-             <td><img src="{{  asset('storage/images/'.$rescuer->animal[0]->img_path)}}" alt="" style="width: 150px;height: 150px;"></td>
+           {{--  <td>{{ $rescuer->animal[0]->name }}</td>
+             <td><img src="{{  asset('storage/images/'.$rescuer->animal[0]->img_path)}}" alt="" style="width: 150px;height: 150px;"></td> --}}
             <td><a href="/rescuer/{{$rescuer->id}}/edit" class="btn btn-primary ml-5">Edit</a></td>
             <td>{!! Form::open(['action' => ['RescuerController@destroy', $rescuer->id], 'method' => 'POST','class'=> 'pull-right']) !!}
                 {{Form::hidden('_method', 'DELETE') }}

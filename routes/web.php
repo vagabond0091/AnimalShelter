@@ -19,6 +19,7 @@ Route::resource('rescuer','\App\Http\Controllers\RescuerController');
 Route::resource('adopter','\App\Http\Controllers\AdopterController');
 Route::resource('user','\App\Http\Controllers\UserController');
 Route::resource('illness','\App\Http\Controllers\IllnessController');
+Route::resource('contact','\App\Http\Controllers\ContactUsController');
 
 Auth::routes();
 

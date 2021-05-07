@@ -19,33 +19,17 @@
             <th>Animal Image</th>
             <th></th>
             <th></th>
-
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="data-adopter">
 
 
-@foreach($adopters as $adopter)
-
-        <tr>
-            <th scope="row">{{ $adopter->adpt_name }}</th>
-            <td>{{ $adopter->adpt_lname }}</td>
-            <td>{{ $adopter->adpt_addr }}</td>
-            <td>{{ $adopter->adpt_phone }}</td>
-            <td>{{ $adopter->animal[0]->name}}</td>
-            <td><img src="{{  asset('storage/images/'.$adopter->animal[0]->img_path)}}" alt="" style="width: 150px;height: 150px;"></td>
-            <td><a href="/adopter/{{$adopter->id}}/edit" class="btn btn-primary ml-5">Edit</a></td>
-            <td>{!! Form::open(['action' => ['AdopterController@destroy', $adopter->id], 'method' => 'POST','class'=> 'pull-right']) !!}
+           {{--  <td>{!! Form::open(['action' => ['AdopterController@destroy', $adopter->id], 'method' => 'POST','class'=> 'pull-right']) !!}
                 {{Form::hidden('_method', 'DELETE') }}
                 {{Form::submit('DELETE',['class' => 'btn btn-danger']) }}
                 {!! Form::close() !!}
-            </td>
-        </tr>
-
-
- @endforeach
+            </td> --}}
     </tbody>
  </table>
-       {{-- </div> --}}
 @endsection

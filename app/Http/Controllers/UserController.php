@@ -48,7 +48,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email:rfc',
             'password' => 'required|confirmed',
             'employee_type' => 'required',
 
@@ -123,7 +123,7 @@ class UserController extends Controller
     {
           $user = User::findOrFail($id);
           if(auth()->user()->employee_type !== "employee"){
-               return redirect('/animal')->with('error','Unauthorized Personnel');
+               return redirect('/user')->with('error','Unauthorized Personnel');
            }
           $user->delete();
           return redirect('/user')->with('error','Personnel Delete Successfully');
