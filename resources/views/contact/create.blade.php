@@ -8,7 +8,7 @@
             {{session('sent') }}
         </div>
     @endif
-    <p id="append">
+    <p id="append message">
 
     </p>
    {!! Form::open(['action' => 'ContactUsController@store', 'method' => 'POST']) !!}

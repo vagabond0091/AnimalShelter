@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -47,7 +49,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|string|max:50',
             'email' => 'required|email:rfc',
             'password' => 'required|confirmed',
             'employee_type' => 'required',
@@ -57,7 +59,7 @@ class UserController extends Controller
         $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password =  $request->input('password');;
+        $user->password =  $request->input('password');
         $user->employee_type = $request->input('employee_type');
         $user->save();
         return redirect('/user')->with('success','User Created Successfully');

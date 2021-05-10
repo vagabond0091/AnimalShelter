@@ -157,6 +157,6 @@ class AnimalController extends Controller
         }
         $animal->delete();
         return response()->json(["success" => "adopter deleted successfully.",
-             "data" => $animal,"status" => 200]);
+             "data" => $animal,"status" =>   200]);
     }
 }
